@@ -13,6 +13,7 @@ namespace ProductsInventory.Tests.Controllers
     [TestClass]
     public class ValuesControllerTest
     {
+        /*
         [TestMethod]
         public void Get()
         {
@@ -76,6 +77,6 @@ namespace ProductsInventory.Tests.Controllers
             controller.Delete(5);
 
             // Assert
-        }
+        }*/
     }
 }
