@@ -31,13 +31,18 @@ namespace ProductsInventory.Controllers
             this.db = db;
         }
 
-        // GET: api/Products
+        /// <summary>
+        /// Returns a list of Products.
+        /// </summary>
         public IQueryable<Product> GetProducts()
         {
             return db.Products;
         }
 
-        // GET: api/Products/5
+        /// <summary>
+        /// Looks up a Product by ID.
+        /// </summary>
+        /// <param name="id">The ID of the product.</param>     
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
         {            
@@ -52,7 +57,11 @@ namespace ProductsInventory.Controllers
             return Ok(product);
         }
 
-        // PUT: api/Products/5
+        /// <summary>
+        /// Updates the Product.        
+        /// </summary>
+        /// <param name="id">The ID of the Product.</param>
+        /// <param name="product">The Product.</param>        
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProduct(int id, Product product)
         {
@@ -95,7 +104,10 @@ namespace ProductsInventory.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Products
+        /// <summary>
+        /// Adds a new Product.
+        /// </summary>
+        /// <param name="product">The Product.</param>     
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> PostProduct(Product product)
         {
@@ -112,7 +124,10 @@ namespace ProductsInventory.Controllers
             return CreatedAtRoute("DefaultApi", new { id = product.Id }, product);
         }
 
-        // DELETE: api/Products/5
+        /// <summary>
+        /// Deletes the Product.
+        /// </summary>
+        /// <param name="id">The ID of the Product.</param>        
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> DeleteProduct(int id)
         {
