@@ -511,5 +511,35 @@
             </summary>
             <param name="id">The ID of the Product.</param>        
         </member>
+        <member name="T:ProductsInventory.Models.Product">
+            <summary>
+            Product class
+            </summary>
+        </member>
+        <member name="P:ProductsInventory.Models.Product.Id">
+            <summary>
+            Identifier of a Product.
+            </summary>
+        </member>
+        <member name="P:ProductsInventory.Models.Product.Name">
+            <summary>
+            Name of a Product.
+            </summary>
+        </member>
+        <member name="P:ProductsInventory.Models.Product.Photo">
+            <summary>
+            Photo of a Product.
+            </summary>
+        </member>
+        <member name="P:ProductsInventory.Models.Product.Price">
+            <summary>
+            Price of a Product.
+            </summary>
+        </member>
+        <member name="P:ProductsInventory.Models.Product.LastUpdated">
+            <summary>
+            Date and time when a Product was last updated.
+            </summary>
+        </member>
     </members>
 </doc>
