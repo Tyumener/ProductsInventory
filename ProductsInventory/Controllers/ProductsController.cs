@@ -9,14 +9,18 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Tracing;
+using NLog;
 using ProductsInventory.Models;
 
 namespace ProductsInventory.Controllers
 {
     public class ProductsController : ApiController
     {
-        private ProductsInventoryContext db;
+        private static readonly ITraceWriter tracer = GlobalConfiguration.Configuration.Services.GetTraceWriter();
 
+        private ProductsInventoryContext db;
+        
         public ProductsController()
         {
             db = new ProductsInventoryContext();
@@ -36,13 +40,15 @@ namespace ProductsInventory.Controllers
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
-        {
+        {            
             Product product = await db.Products.FindAsync(id);
             if (product == null)
             {
+                tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName,
+                    "Product not found");
                 return NotFound();
             }
-
+        
             return Ok(product);
         }
 
@@ -52,11 +58,15 @@ namespace ProductsInventory.Controllers
         {
             if (!ModelState.IsValid)
             {
+                tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName,
+                    "Bad Request");
                 return BadRequest(ModelState);
             }
 
             if (id != product.Id)
             {
+                tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName,
+                    "Bad Request");
                 return BadRequest();
             }
 
@@ -70,10 +80,14 @@ namespace ProductsInventory.Controllers
             {
                 if (!ProductExists(id))
                 {
+                    tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName,
+                        "Product not found");
                     return NotFound();
                 }
                 else
                 {
+                    tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName,
+                        "Could not update the database");
                     throw;
                 }
             }
@@ -87,6 +101,8 @@ namespace ProductsInventory.Controllers
         {
             if (!ModelState.IsValid)
             {
+                tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName,
+                    "Bad Request");
                 return BadRequest(ModelState);
             }
 
@@ -103,6 +119,8 @@ namespace ProductsInventory.Controllers
             Product product = await db.Products.FindAsync(id);
             if (product == null)
             {
+                tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName,
+                    "Product Not Found");
                 return NotFound();
             }
 
