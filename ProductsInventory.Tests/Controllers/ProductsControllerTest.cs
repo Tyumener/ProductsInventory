@@ -13,6 +13,7 @@ using ProductsInventory.Models;
 
 namespace ProductsInventory.Tests.Controllers
 {
+    [TestClass]
     class ProductsControllerTest
     {
         [TestMethod]
